@@ -46,13 +46,30 @@ async function run() {
         //-------All CRUD Starts Here------
         //---------------------------------
 
+        // for getting all data 
 
-app.post('/toyCars', async (req, res) => {
-    const newCar = req.body;
-    console.log(newCar);
-    const result = await toyCollection.insertOne(newCar);
-    res.send(result);
-})
+        // app.get('/toyCars', async (req, res) => {
+        //     const result = await toyCollection.find().toArray();
+        //     res.send(result)
+        // })
+
+        app.get('/toyCars', async (req, res) => {
+            console.log(req.query.sellerEmail);
+            let query = {};
+            if (req.query?.sellerEmail) {
+                query = { sellerEmail: req.query.sellerEmail }
+            }
+            const result = await toyCollection.find(query).toArray();
+            res.send(result)
+        })
+
+
+        app.post('/toyCars', async (req, res) => {
+            const newCar = (req.body);
+            console.log(newCar);
+            const result = await toyCollection.insertOne(newCar);
+            res.send(result);
+        })
 
 
 
