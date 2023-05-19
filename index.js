@@ -39,12 +39,20 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
 
+
+        const toyCollection = client.db('tinyDriversCars').collection('toyCars')
+
         //---------------------------------
         //-------All CRUD Starts Here------
         //---------------------------------
 
 
-
+app.post('/toyCars', async (req, res) => {
+    const newCar = req.body;
+    console.log(newCar);
+    const result = await toyCollection.insertOne(newCar);
+    res.send(result);
+})
 
 
 
