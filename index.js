@@ -111,6 +111,14 @@ async function run() {
 
         // app.get ('/toyCars')
 
+        app.get('/category/:category', async (req, res) => {
+
+            const result = await toyCollection.find({
+                category: req.params.category,
+            }).limit(2).toArray();
+            res.send(result)
+        })
+
 
 
 
