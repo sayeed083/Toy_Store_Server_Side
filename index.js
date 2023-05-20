@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -48,10 +48,7 @@ async function run() {
 
         // for getting all data 
 
-        // app.get('/toyCars', async (req, res) => {
-        //     const result = await toyCollection.find().toArray();
-        //     res.send(result)
-        // })
+        
 
         app.get('/toyCars', async (req, res) => {
             console.log(req.query.sellerEmail);
@@ -69,6 +66,20 @@ async function run() {
             console.log(newCar);
             const result = await toyCollection.insertOne(newCar);
             res.send(result);
+        });
+
+
+        app.delete('/toyCars/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const result = await toyCollection.deleteOne(query);
+            res.send(result);
+
+        })
+
+        app.get('/toyCars', async (req, res) => {
+            const result = await toyCollection.find().toArray();
+            res.send(result)
         })
 
 
