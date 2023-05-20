@@ -48,7 +48,7 @@ async function run() {
 
         // for getting all data 
 
-        
+
 
         app.get('/toyCars', async (req, res) => {
             console.log(req.query.sellerEmail);
@@ -81,6 +81,35 @@ async function run() {
             const result = await toyCollection.find().toArray();
             res.send(result)
         })
+
+        app.get('/toyCars/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const result = await toyCollection.findOne(query);
+            res.send(result);
+        })
+
+        app.put('/toyCars/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) }
+            const options = { upsert: true };
+            const updatedToys = req.body;
+            const updatToys = {
+                $set: {
+                    price: updatedToys.price,
+                    quantity: updatedToys.quantity,
+                    details: updatedToys.details
+                }
+
+            }
+
+            const result = await toyCollection.updateOne(filter, updatToys, options)
+            res.send(result);
+
+
+        })
+
+
 
 
 
