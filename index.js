@@ -37,10 +37,24 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
+        // await client.connect();
 
 
         const toyCollection = client.db('tinyDriversCars').collection('toyCars')
+
+        // const indexKeys = { toyName: 1, category: 1 };
+
+        // const indexOptions = { name: "titleWithCategory" };
+
+        // const result = await toyCollection.createIndex(indexKeys, indexOptions)
+
+
+        
+
+
+
+
+
 
         //---------------------------------
         //-------All CRUD Starts Here------
